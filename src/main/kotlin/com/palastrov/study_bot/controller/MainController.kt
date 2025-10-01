@@ -16,17 +16,7 @@ class MainController(
 
     @PostMapping("/")
     fun listener(@RequestBody update: Update): BotApiMethod<*>? {
-        return if (update.hasMessage()) {
-            createEchoMessage(update.message)
-        } else {
-            webhookBot.onWebhookUpdateReceived(update)
-        }
+        return webhookBot.onWebhookUpdateReceived(update)
     }
 
-    private fun createEchoMessage(message: Message): BotApiMethod<*> {
-        return SendMessage.builder()
-            .chatId(message.chatId.toString())
-            .text(message.text ?: "")
-            .build()
-    }
 }
