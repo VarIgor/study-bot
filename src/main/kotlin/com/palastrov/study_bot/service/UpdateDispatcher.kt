@@ -3,7 +3,7 @@ package com.palastrov.study_bot.service
 import com.palastrov.study_bot.service.handler.CallbackQueryHandler
 import com.palastrov.study_bot.service.handler.CommandHandler
 import com.palastrov.study_bot.service.handler.MessageHandler
-import com.palastrov.study_bot.telegram.MyTelegramWebhookBot
+import com.palastrov.study_bot.telegram.TelegramWebhookBot
 import lombok.extern.slf4j.Slf4j
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -19,7 +19,7 @@ class UpdateDispatcher(
     private val callbackQueryHandler: CallbackQueryHandler
 ) {
 
-    fun distribute(update: Update, bot: MyTelegramWebhookBot): BotApiMethod<*>? {
+    fun distribute(update: Update, bot: TelegramWebhookBot): BotApiMethod<*>? {
         return when {
             update.hasCallbackQuery() -> callbackQueryHandler.answer(update.callbackQuery, bot)
             update.hasMessage() -> handleMessage(update.message, bot)
@@ -30,7 +30,7 @@ class UpdateDispatcher(
         }
     }
 
-    private fun handleMessage(message: Message, bot: MyTelegramWebhookBot): BotApiMethod<*>? {
+    private fun handleMessage(message: Message, bot: TelegramWebhookBot): BotApiMethod<*>? {
         return when {
             message.hasText() && message.text?.startsWith("/") == true ->
                 commandHandler.answer(message, bot)

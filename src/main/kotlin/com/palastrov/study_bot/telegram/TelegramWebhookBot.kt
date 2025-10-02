@@ -8,7 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.BotApiMethod
 import org.telegram.telegrambots.meta.api.objects.Update
 
 @Component
-class MyTelegramWebhookBot(
+class TelegramWebhookBot(
     private val telegramProperties: TelegramProperties,
     private val updateDispatcher: UpdateDispatcher
 ) : TelegramWebhookBot(DefaultBotOptions(), telegramProperties.botToken) {
