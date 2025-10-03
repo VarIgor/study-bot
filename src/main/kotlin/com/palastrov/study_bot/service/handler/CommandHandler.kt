@@ -1,6 +1,7 @@
 package com.palastrov.study_bot.service.handler
 
 import com.palastrov.study_bot.service.data.Command
+import com.palastrov.study_bot.service.factory.KeyboardFactory
 import com.palastrov.study_bot.telegram.TelegramWebhookBot
 import org.springframework.stereotype.Service
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod
@@ -8,7 +9,9 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.Message
 
 @Service
-class CommandHandler {
+class CommandHandler(
+    val keyboardFactory: KeyboardFactory
+) {
     fun answer(message: Message, bot: TelegramWebhookBot): BotApiMethod<*>? {
         return when (message.text) {
             Command.START -> handleStart(message)
@@ -22,6 +25,13 @@ class CommandHandler {
     private fun handleStart(message: Message): BotApiMethod<*> {
         return SendMessage.builder()
             .chatId(message.chatId.toString())
+            .replyMarkup(
+                keyboardFactory.getInlineKeyboard(
+                    mutableListOf("Помощь", "Обратная связь"),
+                    mutableListOf(2),
+                    mutableListOf("help","feedback")
+                )
+            )
             .text(
                 """
                 🖖 *Добро пожаловать в Tutor-Bot!*
@@ -101,10 +111,11 @@ class CommandHandler {
             .build()
     }
 
-    private fun defaultAnswer(message:Message): BotApiMethod<*>? {
+    private fun defaultAnswer(message: Message): BotApiMethod<*>? {
         return SendMessage.builder()
             .chatId(message.chatId)
-            .text("""
+            .text(
+                """
                 ❓ *Извините, я не понял команду*
             
             Вот что я умею:
@@ -115,7 +126,8 @@ class CommandHandler {
             Если вам нужна помощь, используйте /help для получения полного списка команд.
             
             🤖 *Tutor-Bot*
-            """.trimIndent())
+            """.trimIndent()
+            )
             .parseMode("Markdown")
             .build()
     }
