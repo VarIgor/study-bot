@@ -1,17 +1,17 @@
 package com.palastrov.study_bot.service.manager
 
+import com.palastrov.study_bot.service.factory.TelegramMessageFactory
+import org.springframework.stereotype.Component
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery
 import org.telegram.telegrambots.meta.api.objects.Message
 
-object FeedbackManager {
-    fun handleFeedbackCommand(message: Message): BotApiMethod<*>? {
-        return SendMessage.builder()
-            .chatId(message.chatId)
-            .text(
-                """
+@Component
+class FeedbackManager(
+    private val messageFactory: TelegramMessageFactory,
+) {
+
+    private val commandText = """
                  💌 *Обратная связь*
             
             Мы ценим ваше мнение! Здесь вы можете:
@@ -28,17 +28,7 @@ object FeedbackManager {
             
             Спасибо, что помогаете делать бота лучше! 🚀
             """.trimIndent()
-            )
-            .parseMode("Markdown")
-            .build()
-    }
-
-    fun handleFeedbackCallback(callbackQuery: CallbackQuery): BotApiMethod<*>? {
-        return EditMessageText.builder()
-            .chatId(callbackQuery.message.chatId.toString())
-            .messageId(callbackQuery.message.messageId)
-            .text(
-                """
+        private val callbackText = """
                      📝 *Форма обратной связи*
                 
                 Пожалуйста, напишите ваше сообщение в чат.
@@ -50,8 +40,12 @@ object FeedbackManager {
                 
                 ⚠️ *Внимание:* Не отправляйте конфиденциальные данные!
                           """.trimIndent()
-            )
-            .parseMode("Markdown")
-            .build()
+
+    fun handleFeedbackCommand(message: Message): BotApiMethod<*>? {
+        return  messageFactory.createTextMessage(message.chatId, commandText, null)
+    }
+
+    fun handleFeedbackCallback(callbackQuery: CallbackQuery): BotApiMethod<*>? {
+        return  messageFactory.createEditMessage(callbackQuery, callbackText, null)
     }
 }

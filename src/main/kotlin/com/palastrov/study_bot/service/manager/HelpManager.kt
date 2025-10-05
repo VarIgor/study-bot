@@ -1,17 +1,18 @@
 package com.palastrov.study_bot.service.manager
 
+import com.palastrov.study_bot.service.factory.KeyboardFactory
+import com.palastrov.study_bot.service.factory.TelegramMessageFactory
+import org.springframework.stereotype.Component
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery
 import org.telegram.telegrambots.meta.api.objects.Message
-
-object HelpManager {
-    fun handleHelpCommand(message: Message): BotApiMethod<*>? {
-        return SendMessage.builder()
-            .chatId(message.chatId)
-            .text(
-                """
+@Component
+class HelpManager (
+    private val messageFactory: TelegramMessageFactory,
+) {
+    private val helpText = """""
                 📚 *Помощь по командам Tutor-Bot*
             
             Основные команды:
@@ -27,17 +28,8 @@ object HelpManager {
             
             Нужна помощь? Используйте /feedback чтобы связаться с разработчиком!       
             """.trimIndent()
-            )
-            .parseMode("Markdown")
-            .build()
-    }
 
-    fun handleHelpCallback(callbackQuery: CallbackQuery): BotApiMethod<*>? {
-        return EditMessageText.builder()
-            .chatId(callbackQuery.message.chatId.toString())
-            .messageId(callbackQuery.message.messageId)
-            .text(
-                """
+    private val callbackText = """
                      ℹ️ *Расширенная справка*
                 
                 Здесь будет детальная информация о функциях:
@@ -57,8 +49,13 @@ object HelpManager {
                 • Графики обучения
                 • Рекомендации по улучшению
                        """.trimIndent()
-            )
-            .parseMode("Markdown")
-            .build()
+
+    fun handleHelpCommand(message: Message): BotApiMethod<*>? {
+        return messageFactory.createTextMessage(message.chatId, helpText, null)
+
+    }
+
+    fun handleHelpCallback(callbackQuery: CallbackQuery): BotApiMethod<*>? {
+        return messageFactory.createEditMessage(callbackQuery, callbackText, null)
     }
 }

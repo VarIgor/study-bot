@@ -9,12 +9,15 @@ import org.telegram.telegrambots.meta.api.methods.BotApiMethod
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery
 
 @Service
-class CallbackQueryHandler {
+class CallbackQueryHandler(
+    private val feedbackManager: FeedbackManager,
+    private val helpManager: HelpManager
+) {
     fun answer(callbackQuery: CallbackQuery, bot: TelegramWebhookBot): BotApiMethod<*>? {
         val callbackData = callbackQuery.data
         return when (callbackData) {
-            Callback.FEEDBACK -> FeedbackManager.handleFeedbackCallback(callbackQuery)
-            Callback.HELP -> HelpManager.handleHelpCallback(callbackQuery)
+            Callback.FEEDBACK -> feedbackManager.handleFeedbackCallback(callbackQuery)
+            Callback.HELP -> helpManager.handleHelpCallback(callbackQuery)
             else -> null
         }
     }
