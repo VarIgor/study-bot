@@ -18,8 +18,8 @@ class CommandHandler(
 ) {
     fun answer(message: Message, bot: TelegramWebhookBot): BotApiMethod<*>? {
         return when (message.text) {
-            Command.FEEDBACK -> feedbackManager.handleFeedbackCommand(message)
-            Command.HELP -> helpManager.handleHelpCommand(message)
+            Command.FEEDBACK -> feedbackManager.handleCommand(message)
+            Command.HELP -> helpManager.handleCommand(message)
             Command.START -> startManager.handleCommand(message)
             else -> defaultAnswer(message)
         }

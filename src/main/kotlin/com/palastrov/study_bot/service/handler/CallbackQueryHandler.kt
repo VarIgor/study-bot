@@ -16,8 +16,8 @@ class CallbackQueryHandler(
     fun answer(callbackQuery: CallbackQuery, bot: TelegramWebhookBot): BotApiMethod<*>? {
         val callbackData = callbackQuery.data
         return when (callbackData) {
-            Callback.FEEDBACK -> feedbackManager.handleFeedbackCallback(callbackQuery)
-            Callback.HELP -> helpManager.handleHelpCallback(callbackQuery)
+            Callback.FEEDBACK -> feedbackManager.handleCallback(callbackQuery)
+            Callback.HELP -> helpManager.handleCallback(callbackQuery)
             else -> null
         }
     }

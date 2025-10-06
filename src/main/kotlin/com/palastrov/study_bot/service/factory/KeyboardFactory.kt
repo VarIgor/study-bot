@@ -10,7 +10,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 @Component
 class KeyboardFactory {
 
-    fun getInlineKeyboard(
+    fun createInlineKeyboard(
         text: List<String>,
         configuration: List<Int>,
         data: List<String>
@@ -38,7 +38,7 @@ class KeyboardFactory {
     }
 
 
-    fun getReplyKeyboard(
+    fun createReplyKeyboard(
         text: List<String>,
         configuration: List<Int>
     ): ReplyKeyboardMarkup {

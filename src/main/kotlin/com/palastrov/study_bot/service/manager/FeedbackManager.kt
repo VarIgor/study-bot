@@ -9,7 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Message
 @Component
 class FeedbackManager(
     private val messageFactory: TelegramMessageFactory,
-) {
+): Manager {
 
     private val commandText = """
                  💌 *Обратная связь*
@@ -41,11 +41,11 @@ class FeedbackManager(
                 ⚠️ *Внимание:* Не отправляйте конфиденциальные данные!
                           """.trimIndent()
 
-    fun handleFeedbackCommand(message: Message): BotApiMethod<*>? {
+    override fun handleCommand(message: Message): BotApiMethod<*>? {
         return  messageFactory.createTextMessage(message.chatId, commandText, null)
     }
 
-    fun handleFeedbackCallback(callbackQuery: CallbackQuery): BotApiMethod<*>? {
+    override fun handleCallback(callbackQuery: CallbackQuery): BotApiMethod<*>? {
         return  messageFactory.createEditMessage(callbackQuery, callbackText, null)
     }
 }

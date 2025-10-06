@@ -11,7 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.Message
 @Component
 class HelpManager (
     private val messageFactory: TelegramMessageFactory,
-) {
+) : Manager{
     private val helpText = """""
                 📚 *Помощь по командам Tutor-Bot*
             
@@ -50,12 +50,11 @@ class HelpManager (
                 • Рекомендации по улучшению
                        """.trimIndent()
 
-    fun handleHelpCommand(message: Message): BotApiMethod<*>? {
+    override fun handleCommand(message: Message): BotApiMethod<*>? {
         return messageFactory.createTextMessage(message.chatId, helpText, null)
-
     }
 
-    fun handleHelpCallback(callbackQuery: CallbackQuery): BotApiMethod<*>? {
+    override fun handleCallback(callbackQuery: CallbackQuery): BotApiMethod<*>? {
         return messageFactory.createEditMessage(callbackQuery, callbackText, null)
     }
 }
