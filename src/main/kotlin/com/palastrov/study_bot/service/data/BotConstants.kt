@@ -8,11 +8,21 @@ object BotConstants {
         const val HELP = "/help"
         const val SCHEDULE = "/schedule"  // future option
         const val HOMEWORK = "/homework"  // future option
+        const val TIMETABLE = "/timetable"
+        const val TASK = "/task"
     }
 
     // Data for callback buttons
     object Callback {
         const val FEEDBACK = "feedback"
         const val HELP = "help"
+        const val TIMETABLE = "timetable"
+        const val TIMETABLE_SHOW = "timetable_show"
+        const val TIMETABLE_ADD = "timetable_add"
+        const val TIMETABLE_REMOVE = "timetable_remove"
+
+        const val TASK = "task"
+        const val TASK_CREATE = "task_create"
+
     }
 }

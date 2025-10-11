@@ -4,6 +4,8 @@ import com.palastrov.study_bot.service.data.BotConstants.Command
 import com.palastrov.study_bot.service.manager.FeedbackManager
 import com.palastrov.study_bot.service.manager.HelpManager
 import com.palastrov.study_bot.service.manager.StartManager
+import com.palastrov.study_bot.service.manager.TaskManager
+import com.palastrov.study_bot.service.manager.TimetableManager
 import com.palastrov.study_bot.telegram.TelegramWebhookBot
 import org.springframework.stereotype.Service
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod
@@ -12,15 +14,19 @@ import org.telegram.telegrambots.meta.api.objects.Message
 
 @Service
 class CommandHandler(
-     private val feedbackManager: FeedbackManager,
-     private val helpManager: HelpManager,
-     private val startManager: StartManager
+    private val feedbackManager: FeedbackManager,
+    private val helpManager: HelpManager,
+    private val startManager: StartManager,
+    private val timetableManager: TimetableManager,
+    private val taskManager: TaskManager
 ) {
     fun answer(message: Message, bot: TelegramWebhookBot): BotApiMethod<*>? {
         return when (message.text) {
             Command.FEEDBACK -> feedbackManager.handleCommand(message)
             Command.HELP -> helpManager.handleCommand(message)
             Command.START -> startManager.handleCommand(message)
+            Command.TIMETABLE -> timetableManager.handleCommand(message)
+            Command.TASK -> taskManager.handleCommand(message)
             else -> defaultAnswer(message)
         }
 

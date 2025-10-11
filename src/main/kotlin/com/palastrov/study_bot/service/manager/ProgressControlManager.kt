@@ -1,9 +1,11 @@
 package com.palastrov.study_bot.service.manager
 
+import org.springframework.stereotype.Component
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery
 import org.telegram.telegrambots.meta.api.objects.Message
 
+@Component
 class ProgressControlManager: Manager {
     override fun handleCommand(message: Message): BotApiMethod<*>? {
         TODO("Not yet implemented")
