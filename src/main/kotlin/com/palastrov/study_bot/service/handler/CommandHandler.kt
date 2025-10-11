@@ -3,6 +3,7 @@ package com.palastrov.study_bot.service.handler
 import com.palastrov.study_bot.service.data.BotConstants.Command
 import com.palastrov.study_bot.service.manager.FeedbackManager
 import com.palastrov.study_bot.service.manager.HelpManager
+import com.palastrov.study_bot.service.manager.ProgressControlManager
 import com.palastrov.study_bot.service.manager.StartManager
 import com.palastrov.study_bot.service.manager.TaskManager
 import com.palastrov.study_bot.service.manager.TimetableManager
@@ -18,7 +19,8 @@ class CommandHandler(
     private val helpManager: HelpManager,
     private val startManager: StartManager,
     private val timetableManager: TimetableManager,
-    private val taskManager: TaskManager
+    private val taskManager: TaskManager,
+    private val progressControlManager: ProgressControlManager // todo private val managers: List<Manager> (Spring will inject all managers)
 ) {
     fun answer(message: Message, bot: TelegramWebhookBot): BotApiMethod<*>? {
         return when (message.text) {
@@ -27,6 +29,7 @@ class CommandHandler(
             Command.START -> startManager.handleCommand(message)
             Command.TIMETABLE -> timetableManager.handleCommand(message)
             Command.TASK -> taskManager.handleCommand(message)
+            Command.PROGRESS -> progressControlManager.handleCommand(message)
             else -> defaultAnswer(message)
         }
 

@@ -10,6 +10,7 @@ object BotConstants {
         const val HOMEWORK = "/homework"  // future option
         const val TIMETABLE = "/timetable"
         const val TASK = "/task"
+        const val PROGRESS = "/progress"
     }
 
     // Data for callback buttons
@@ -23,6 +24,13 @@ object BotConstants {
 
         const val TASK = "task"
         const val TASK_CREATE = "task_create"
+
+
+        const val PROGRESS = "progress"
+        const val PROGRESS_STAT = "progress_stat"
+
+
+
 
     }
 }
