@@ -1,3 +1,23 @@
-telegram-bot.username=@palastrov_study_bot
-telegram-bot.token = ${TELEGRAM_TOKEN}
-telegram-bot.path = https://tv8dkf-62-113-87-13.ru.tuna.am
+# Telegram Bot Configuration
+telegram:
+  bot:
+    username: "@palastrov_study_bot"
+    token: ${TELEGRAM_TOKEN}
+    path: "https://kdohxz-62-113-87-140.ru.tuna.am"
+
+  # Spring Configuration
+spring:
+  datasource:
+    url: ${DATASOURCE_URL}
+    driver-class-name: org.postgresql.Driver
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+profiles:
+  active: dev
+
+  server:
+    port: 8080

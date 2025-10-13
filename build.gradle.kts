@@ -37,6 +37,15 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.telegram/telegrambots
     implementation("org.telegram:telegrambots:6.9.7.1")
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
+    implementation("org.springframework.boot:spring-boot-starter-aop:3.5.5")
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.5.5")
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation("org.postgresql:postgresql:42.7.7")
+    // https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator
+    implementation("org.hibernate.validator:hibernate-validator:9.0.1.Final")
 }
 
 kotlin {
