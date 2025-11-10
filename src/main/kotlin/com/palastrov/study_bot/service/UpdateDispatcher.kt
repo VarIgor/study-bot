@@ -1,7 +1,7 @@
 package com.palastrov.study_bot.service
 
-import com.palastrov.study_bot.entity.User
-import com.palastrov.study_bot.repository.UserRepository
+import com.palastrov.study_bot.entity.user.User
+import com.palastrov.study_bot.repository.UserRepo
 import com.palastrov.study_bot.service.handler.CallbackQueryHandler
 import com.palastrov.study_bot.service.handler.CommandHandler
 import com.palastrov.study_bot.service.handler.MessageHandler
@@ -20,7 +20,7 @@ class UpdateDispatcher(
     private val messageHandler: MessageHandler,
     private val commandHandler: CommandHandler,
     private val callbackQueryHandler: CallbackQueryHandler,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepo
 ) {
 
     fun distribute(update: Update, bot: TelegramWebhookBot): BotApiMethod<*>? {
@@ -30,7 +30,6 @@ class UpdateDispatcher(
                 createUser(update.message)
                 handleMessage(update.message, bot)
             }
-
             else -> {
                 log.info("Unsupported update: $update")
                 null

@@ -3,7 +3,7 @@ telegram:
   bot:
     username: "@palastrov_study_bot"
     token: ${TELEGRAM_TOKEN}
-    path: "https://kdohxz-62-113-87-140.ru.tuna.am"
+    path: "https://6yyfcl-62-113-87-149.ru.tuna.am"
 
   # Spring Configuration
 spring:
