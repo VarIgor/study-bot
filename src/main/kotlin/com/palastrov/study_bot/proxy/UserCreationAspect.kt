@@ -67,10 +67,10 @@ class UserCreationAspect(
             )
             detailsRepo.save(details)
 
-            log.info("✅ Created new user: ${telegramUser.userName ?: telegramUser.firstName} (ID: ${telegramUser.id})")
+            log.info("Created new user: ${telegramUser.userName ?: telegramUser.firstName} (ID: ${telegramUser.id})")
 
         } catch (e: Exception) {
-            log.error("❌ Failed to create user: ${telegramUser.id}", e)
+            log.error("Failed to create user: ${telegramUser.id}", e)
         }
     }
 }
