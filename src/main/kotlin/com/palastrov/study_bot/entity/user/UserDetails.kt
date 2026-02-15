@@ -14,41 +14,14 @@ import java.util.UUID
 
 @Entity
 @Table(name = "user_details")
-class UserDetails {
-
+class UserDetails(
+    @field:Column(name = "username") var username: String? = null,
+    @field:Column(name = "first_name") var firstName: String? = null,
+    @field:Column(name = "last_name") var lastName: String? = null,
+    @field:Column(name = "registered_at", nullable = false) var registeredAt: LocalDateTime = LocalDateTime.now(),
+    @OneToOne(fetch = FetchType.LAZY) @JoinColumn(name = "user_id", nullable = false) var user: User
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null
-
-    @Column(name = "username")
-    var username: String? = null
-
-    @Column(name = "first_name")
-    var firstName: String? = null
-
-    @Column(name = "last_name")
-    var lastName: String? = null
-
-    @Column(name = "registered_at")
-    var registeredAt: LocalDateTime? = null
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    var user: User? = null
-
-    constructor()
-
-    constructor(
-        username: String? = null,
-        firstName: String? = null,
-        lastName: String? = null,
-        registeredAt: LocalDateTime? = null,
-        user: User? = null
-    ) : this() {
-        this.username = username
-        this.firstName = firstName
-        this.lastName = lastName
-        this.registeredAt = registeredAt
-        this.user = user
-    }
 }
